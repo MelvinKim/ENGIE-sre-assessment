@@ -1,0 +1,87 @@
+ALB
+EC2
+- Multi-AZ deployments
+- Health checks
+- Right sizing
+- ASG
+- least priviledge acess - IAM
+- SG inbound and outbound rules
+-  TLS --> HTTPS
+- Networks ACLs
+- Regular patches - to fix security issues
+
+
+Namespaces vs cgroups
+Namespaces
+- used to isolate resources
+- limits what you can see
+- processes within a PID namespace only see processes in the same PID namespace
+- each PID namespace has it's own numbering staring at 1
+- if PID namespace goes away (deleted), all the resources in the namespace are deleted
+- Types of namespaces:
+1. Network namespace
+processes within a given network namespace get their own network namespace, get their own private network stack
+including network interfaces, routing tables, iptable rules, sockets etc
+You can move a network interface from one namespace to another
+2. Mnt namespace
+enable containers to mount resources in their namespaces
+processes have their own root file system
+processes can also have "private" mounts
+mounts can be private or shared
+the is no easy to pass along a mount from a namespace to another
+3. UTS (UNIX Time-Sharing) namespace
+allow containers to appear to have different host and domain names
+4. IPC (Inter-Process Communication)
+allow processes to have their own IPC semaphores, IPC message queues, IPC shared memory
+5. User namespace
+used to isolate processes' security-related identifiers and attributes eg User-IDs, Group-IDs
+a process's user and group id can be different inside and outside a user namespace --> you can be a root
+user inside a container, but outside the container you aren't a root user.
+
+
+Cgroups
+- used to limit resource usage eg CPU/memory etc
+- limits what you can use
+- Types of cgroups:
+1. CPU Cgroups
+used to limit CPU usage for containers
+2. memory Cgroups
+used to limit memory usage for containers
+3. device Cgroups
+used to limit device usage for containers
+
+
+Git techniques
+- Cherry-pick a commit
+(a new commit SHA is created when you cherry pick a commit)
+(you can cherry pick commits from any branch)
+(you cannot cherry pick a merged commit)
+git cherry-pick <commit-SHA>
+git cherry-pick <range-of-commit-SHA>
+- How to cherry-pick and edit the commit message
+git cherry-pick <commit-SHA> --edit
+- get current commits in single lines form
+git log --oneline
+- View the changes made a specific commit
+git show <commit-SHA>
+- switch/checkout a specific branch
+git checkout <branch-name>
+git switch <branch-name>
+- How to create a diff patch
+git diff <starting-commit-SHA>..<ending-commit-SHA> (don't forget the two dots between the two commits)
+git diff <starting-commit-SHA>..<ending-commit-SHA> > output.txt
+- How to apply a diff patch
+git apply <file> eg
+git apply output.txt
+- How to create a new branch from a specific commit SHA
+git switch -c <branch-name> <commit-SHA> eg
+git switch -c test-branch 38382hs
+- git restore a file
+git restore <file> eg
+git restore file.txt
+
+
+Linux
+- To view the connections on your screen
+netstat
+- 
